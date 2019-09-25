@@ -23,7 +23,7 @@ function buyProduct(e){
   e.preventDefault();
 
   if(e.target.classList.contains('agregar-carrito')){
-    const product = e.target.parantElement.parentElement;
+    const product = e.target.parentElement.parentElement;
     getProductData(product);
   }
 }
@@ -53,4 +53,32 @@ function addCart(product){
            <a href="#" class="borrar-curso" data-id="${product.id}">X</a>
       </td>
  `;
+
+  productsList.appendChild(row);
+  saveProductLocalStorage(product);
+}
+
+// delete the product from cart and DOM
+function deleteProduct(e){
+  e.preventDefault();
+
+  let product, productId;
+  if(e.target.classList.contains('borrar-curso')){
+    e.target.parentElement.parentElement.remove();
+    product = e.target.parentElement.parentElement;
+    productId = product.querySelector('a').getAttribute('data-id');
+  }
+  deleteProductLocalStorage(productId);
+}
+
+// delete all products form cart and DOM
+function emptyCart(){
+  while(productsList.firstChild){
+    productsList.removeChild(productsList.firstChild);
+  }
+
+  // empty local storage
+  emptyLocalStorage();
+
+  return false;
 }
