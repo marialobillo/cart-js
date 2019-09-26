@@ -91,7 +91,7 @@ function saveProductLocalStorage(product){
 
   products.push(product);
 
-  localStorage.setItem('products', JSON.stringify(products);
+  localStorage.setItem('products', JSON.stringify(products));
 }
 
 // check local storage elements
@@ -126,4 +126,24 @@ function getLocalStorage(){
     `;
     productsList.appendChild(row);
   });
+}
+
+// delete product by id on Local storage
+function deleteProductLocalStorage(product){
+  let productsLS;
+  // get products array
+  productsLS = getProductsLocalStorage();
+  // proudct loop
+  productsLS.forEach(function(productLS, index){
+    if(productLS.id === product){
+      productsLS.splice(index, 1);
+    }
+  });
+  // add the current array products to local storage
+  localStorage.setItem('products', JSON.stringify(productsLS));
+}
+
+// delete all product from Local Storage
+function emptyLocalStorage(){
+  localStorage.clear();
 }
