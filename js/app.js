@@ -82,3 +82,48 @@ function emptyCart(){
 
   return false;
 }
+
+// save products on cart and local storage
+function saveProductLocalStorage(product){
+  let products;
+
+  products = getProdutcsLocalStorage();
+
+  products.push(product);
+
+  localStorage.setItem('products', JSON.stringify(products);
+}
+
+// check local storage elements
+function getProductsLocalStorage(){
+  let productsLS;
+
+  if(localStorage.getItem('products') === null){
+    productsLS = [];
+  } else {
+    productsLS = JSON.parse(localStorage.getItem('products'));
+  }
+}
+
+// show products from Local Storage on cart
+function getLocalStorage(){
+  let productsLS;
+
+  productsLS = getProductsLocalStorage();
+
+  productsLS.forEach(function(product){
+    // build template
+    const row = document.createElement('tr');
+    row.innerHTML = `
+    <td>
+              <img src="${product.image}" width=100>
+         </td>
+         <td>${product.title}</td>
+         <td>${product.price}</td>
+         <td>
+              <a href="#" class="borrar-curso" data-id="${product.id}">X</a>
+         </td>
+    `;
+    productsList.appendChild(row);
+  });
+}
